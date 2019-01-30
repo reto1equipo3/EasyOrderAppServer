@@ -151,17 +151,17 @@ public class PedidoEJB implements PedidoEJBLocal {
      * Finds a List of {@link Pedido} objects containing data for all pedidos
      * with certain cliente value.
      *
-     * @param cliente The cliente value for the pedidos to be found.
+	 * @param id Client id
      * @return A List of {@link Pedido} objects.
      * @throws ReadException If there is any Exception during processing.
      */
     @Override
-    public List<Pedido> buscarPedidoDeCliente(Cliente cliente) throws ReadException {
+    public List<Pedido> buscarPedidoDeCliente(Integer id) throws ReadException {
         List<Pedido> pedidos = null;
         try {
             LOGGER.info("Pedido: Reading pedidos by cliente.");
             pedidos = em.createNamedQuery("buscarPedidoDeCliente")
-                    .setParameter("cliente", cliente)
+                    .setParameter("id", id)
                     .getResultList();
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Pedido: Exception reading pedido by cliente.",

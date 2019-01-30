@@ -68,10 +68,10 @@ public interface PedidoEJBLocal {
      * Finds a List of {@link Pedido} objects containing data for all pedidos
      * with certain id cliene value.
      *
-     * @param cliente The cliente value for the pedidos to be found.
+	 * @param id Client id
      * @return A List of {@link Pedido} objects.
      * @throws ReadException If there is any Exception during processing.
      */
-    public List<Pedido> buscarPedidoDeCliente(Cliente cliente) throws ReadException;
+    public List<Pedido> buscarPedidoDeCliente(Integer id) throws ReadException;
 
 }

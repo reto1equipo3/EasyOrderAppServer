@@ -32,6 +32,7 @@ public class ApplicationConfig extends Application {
 		resources.add(javafxserverside.rest.ClienteREST.class);
 		resources.add(javafxserverside.rest.EmpleadoREST.class);
 		resources.add(javafxserverside.rest.PedidoFacadeREST.class);
+		resources.add(javafxserverside.rest.ProductoFacadeREST.class);
 	}
 	
 }

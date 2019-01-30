@@ -157,17 +157,17 @@ public class PedidoFacadeREST {
      /**
      * RESTful GET method for reading all {@link Pedido} objects that has a certain cliente
      * through an XML representation.
-     * @param cliente The cliente value for the object.
+     * @param id The cliente value for the object.
      * @return A List of Pedido objects containing data.
      */
     @GET
     @Path("cliente/{id}")
     @Produces({"application/xml"})
-    public List<Pedido> buscarPedidoDeCliente(@PathParam("id") Cliente cliente) {
+    public List<Pedido> buscarPedidoDeCliente(@PathParam("id") Integer id) {
         List<Pedido> pedidos=null;
         try {
-            LOGGER.log(Level.INFO,"PedidoRESTful service: find pedido by cliente {0}.",cliente);
-            pedidos= ejb.buscarPedidoDeCliente(cliente); 
+            LOGGER.log(Level.INFO,"PedidoRESTful service: find pedido by cliente {0}.",id);
+            pedidos= ejb.buscarPedidoDeCliente(id); 
             
         } catch (ReadException ex) {
             LOGGER.log(Level.SEVERE,
