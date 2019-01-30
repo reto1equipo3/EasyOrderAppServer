@@ -16,6 +16,7 @@ import static javafxserverside.utils.Crypto.digestPassword;
 import javafxserverside.utils.MyEmail;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -99,7 +100,6 @@ public class EmpleadoManagerEJB implements EmpleadoManagerEJBLocal {
 
 		return empleado;
 	}
-
 
 	/**
 	 * Change the password of an {@link Empleado}.
@@ -231,6 +231,11 @@ public class EmpleadoManagerEJB implements EmpleadoManagerEJBLocal {
 		LOGGER.info("EmpleadoManagerEJB: Creating employee.");
 
 		try {
+			entityManager.createNamedQuery("findEmployeeByLogin").setParameter("login", empleado.getLogin()).getSingleResult();
+
+			throw new CreateException("Login already exists.");
+		} catch (NoResultException ex) {
+
 			empleado.setPassword(digestPassword(decryptPassword(empleado.getPassword())));
 			entityManager.persist(empleado);
 		} catch (Exception ex) {

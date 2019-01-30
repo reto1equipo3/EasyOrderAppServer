@@ -128,19 +128,19 @@ public class EmpleadoREST {
 	@GET
 	@Path("login/{login}")
 	@Produces({"application/xml"})
-	public boolean recuperarContrasegna(@PathParam("login") String login) {
+	public Empleado recuperarContrasegna(@PathParam("login") String login) {
 		LOGGER.log(Level.INFO, "EmpleadoRESTful service: restoring password...");
-		boolean isPasswordRestored = false;
+		Empleado emple = null;
 
 		try {
-			isPasswordRestored = ejb.recuperarContrasegna(login);
+			ejb.recuperarContrasegna(login);
 		} catch (ReadException ex) {
 			LOGGER.log(Level.SEVERE, "EmpleadoRESTful service: Exception restoring password, {0}", ex.getMessage());
 			throw new InternalServerErrorException(ex);
 		}
 
 		LOGGER.log(Level.INFO, "EmpleadoRESTful service: restored password.");
-		return isPasswordRestored;
+		return emple;
 	}
 
 	/**
