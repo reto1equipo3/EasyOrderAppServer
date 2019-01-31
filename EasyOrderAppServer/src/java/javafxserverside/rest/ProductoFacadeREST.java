@@ -102,7 +102,7 @@ public class ProductoFacadeREST {
     }
 
     /**
-     * RESTful GET method for reading {@link User} objects through an XML representation.
+     * RESTful GET method for reading {@link Producto} objects through an XML representation.
      * @param id The id for the object to be read.
      * @return The User object containing data. 
      */

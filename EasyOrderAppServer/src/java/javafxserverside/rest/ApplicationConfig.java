@@ -27,6 +27,7 @@ public class ApplicationConfig extends Application {
 	 * It is automatically populated with
 	 * all resources defined in the project.
 	 * If required, comment out calling this method in getClasses().
+	 * @param resources Resources
 	 */
 	private void addRestResourceClasses(Set<Class<?>> resources) {
 		resources.add(javafxserverside.rest.ClienteREST.class);
