@@ -5,6 +5,12 @@
  */
 package javafxserverside.ejb;
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +22,7 @@ import javafxserverside.exception.UpdateException;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import org.bson.Document;
 
 /**
  * EJB class for managing Producto entity CRUD operations.
@@ -85,10 +92,28 @@ public class ProductoManagerEJB  implements ProductoManagerEJBLocal{
      */
     @Override
     public void createProduct(Producto producto) throws CreateException {
+        
         LOGGER.info("ProductoManager: Creating product.");
+        Document newDoc = null;
         try{
-            em.persist(producto);
-            LOGGER.info("ProductoManager: Product created.");
+        //Conexión con MongoDB    
+        MongoClient mongoClient = (MongoClient) MongoClients.create();
+        
+        MongoDatabase mongoDB = mongoClient.getDatabase("EasyOrderApp");
+        MongoCollection<Document> collection = mongoDB.getCollection("Productos");
+            
+        em.persist(producto);
+        
+        //Creación del documento con el producto a registrar
+        newDoc.put("idProducto", producto.getId());
+        newDoc.put("Nombre", producto.getNombre());
+        newDoc.put("Stock", producto.getStock());
+        newDoc.put("PrecioUnidad/Kg", producto.getPrecioUnidad());
+        
+        //Registro del documento en la colección
+        collection.insertOne(newDoc);
+        
+        LOGGER.info("ProductoManager: Product created.");
         }catch(Exception e){
             LOGGER.log(Level.SEVERE, "ProductoManager: Exception creating product.{0}",
                     e.getMessage());
