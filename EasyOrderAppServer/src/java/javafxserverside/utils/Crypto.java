@@ -58,7 +58,7 @@ public class Crypto {
 			 * Then, we have to read (as a byte[]) the key with which the text is going to
 			 * be deciphered, the private key.
 			 */
-			fileInputStream = new FileInputStream("private.key");
+			fileInputStream = new FileInputStream("easyorderappPrivate.key");
 			byte[] inputPrivateKey = new byte[fileInputStream.available()];
 			fileInputStream.read(inputPrivateKey);
 
